@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>今日のひとこと</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f4f0;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 48px 40px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    .label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      color: #aaa;
+      margin-bottom: 32px;
+    }
+
+    .quote {
+      font-size: 22px;
+      font-weight: 500;
+      color: #1a1a1a;
+      line-height: 1.6;
+      min-height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s;
+      margin-bottom: 40px;
+    }
+
+    .quote.fade { opacity: 0; }
+
+    .btn {
+      background: #1a1a1a;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px 32px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.1s, background 0.15s;
+    }
+
+    .btn:hover { background: #333; }
+    .btn:active { transform: scale(0.97); }
+
+    .count {
+      font-size: 12px;
+      color: #bbb;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="label">TODAY'S WORDS</div>
+    <div class="quote" id="quote">ボタンを押してみて</div>
+    <button class="btn" onclick="next()">つぎのひとこと</button>
+    <div class="count" id="count"></div>
+  </div>
+
+  <script>
+    const quotes = [
+      "やるか、やらないか。試すという選択肢はない。",
+      "今日できることを、明日に延ばさない。",
+      "準備が整うのを待っていたら、永遠に始められない。",
+      "小さな一歩が、大きな旅の始まり。",
+      "失敗は成功のための練習だ。",
+      "自分を信じることが、すべての始まり。",
+      "どんな道も、最初の一歩から始まる。",
+      "努力は必ず報われる。ただし、続けた人だけに。",
+      "完璧を目指すより、まず終わらせろ。",
+      "昨日の自分より、少しだけ前へ。",
+    ];
+
+    let count = 0;
+    let last = -1;
+
+    function next() {
+      let idx;
+      do { idx = Math.floor(Math.random() * quotes.length); } while (idx === last);
+      last = idx;
+      count++;
+
+      const el = document.getElementById('quote');
+      el.classList.add('fade');
+      setTimeout(() => {
+        el.textContent = quotes[idx];
+        el.classList.remove('fade');
+      }, 300);
+
+      document.getElementById('count').textContent = count + '回押した';
+    }
+  </script>
+</body>
+</html>
